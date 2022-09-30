@@ -103,6 +103,16 @@ namespace march_token.src
             return !(current == other);
         }
 
+        public static Point operator *(Point current, int coefficient)
+        {
+            for(int i = 0; i < coefficient - 1; ++i)
+            {
+                current += current;
+            }
+
+            return current;
+        }
+
         public FieldElement getX() => this.x;
 
         public FieldElement getY() => this.y;
