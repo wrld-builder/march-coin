@@ -5,13 +5,13 @@ namespace march_token.src
 {
     internal class Point
     {
-        private FieldElement x;
+        private FieldElement x = null;
 
-        private FieldElement y;
+        private FieldElement y = null;
 
-        private FieldElement a;
+        private FieldElement a = null;
 
-        private FieldElement b;
+        private FieldElement b = null;
 
         public Point(FieldElement x, FieldElement y, FieldElement a, FieldElement b)
         {
@@ -103,14 +103,27 @@ namespace march_token.src
             return !(current == other);
         }
 
-        public static Point operator *(Point current, int coefficient)
+        public override bool Equals(object obj)
         {
-            for(int i = 0; i < coefficient - 1; ++i)
-            {
+            return base.Equals(obj);
+        }
+
+        public static Point operator *(Point current, int coefficient)       // binary algorithm to __rmul__
+        {
+            Point result = current;
+
+            while (coefficient != 0)
+            { 
+                if ((coefficient >> 1) == 1)
+                {
+                    result += current;
+                }
+
                 current += current;
+                coefficient >>= 1;
             }
 
-            return current;
+            return result;
         }
 
         public FieldElement getX() => this.x;

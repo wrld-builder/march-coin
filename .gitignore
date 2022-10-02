@@ -1,3 +1,4 @@
 .sln*
-obj/
-bin/
+march-token/obj/
+march-token/bin/
+.vs/
