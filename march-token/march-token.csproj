@@ -41,5 +41,8 @@
     <Compile Include="src\mathBase.cs" />
     <Compile Include="src\Point.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

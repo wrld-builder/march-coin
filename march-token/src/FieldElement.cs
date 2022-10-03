@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Numerics;
+using math.src;
 
-namespace march_token.src
+namespace ecc.src
 {
     internal class FieldElement : MathBase
     {
-        private double number = 0;
+        private BigInteger number = 0;
 
-        private double prime = 0;
+        private BigInteger prime = 0;
 
-        public FieldElement(double number, double prime)
+        public FieldElement(BigInteger number, BigInteger prime)
         {
             try
             {
@@ -28,13 +30,13 @@ namespace march_token.src
             }
         }
 
-        public double getNumber() => this.number;
+        public BigInteger getNumber() => this.number;
 
-        public double getPrime() => this.prime;
+        public BigInteger getPrime() => this.prime;
 
         public static FieldElement operator+(FieldElement current, FieldElement other)
         {
-            double result = 0;
+            BigInteger result = 0;
 
             try
             {
@@ -49,7 +51,7 @@ namespace march_token.src
 
             finally
             {
-                result = (current.number + other.number) % current.prime;
+                result = ((current.number + other.number) % current.prime);
                 if (result < 0) result += current.prime;
             }
 
@@ -58,7 +60,7 @@ namespace march_token.src
 
         public static FieldElement operator-(FieldElement current, FieldElement other)
         {
-            double result = 0;
+            BigInteger result = 0;
 
             try
             {
@@ -82,7 +84,7 @@ namespace march_token.src
 
         public static FieldElement operator *(FieldElement current, FieldElement other)
         {
-            double result = 0;
+            BigInteger result = 0;
 
             try
             {
@@ -106,7 +108,7 @@ namespace march_token.src
 
         public static FieldElement operator /(FieldElement current, FieldElement other)
         {
-            double result = 0;
+            BigInteger result = 0;
 
             try
             {
@@ -121,7 +123,7 @@ namespace march_token.src
 
             finally
             {
-                result = current.number * modexp(Convert.ToInt32(other.number), Convert.ToInt32(current.prime) - 2, Convert.ToInt32(current.prime)) % current.prime;
+                result = current.number * modexp((int)other.number, (int)(current.prime - 2), (int)current.prime) % current.prime;
                 if (result < 0) result += current.prime;
             }
 
@@ -139,9 +141,21 @@ namespace march_token.src
             return !(current == other);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            FieldElement fieldElement = (FieldElement)obj;
+            return fieldElement.number == this.number && fieldElement.prime == this.prime;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public FieldElement powFieldElement(int exponent)
         {
-            double result = Math.Pow(this.number, exponent) % this.prime;
+            BigInteger result = (int)Math.Pow((double)this.number, exponent) % this.prime;
             return new FieldElement(result, this.prime);
         }
     }

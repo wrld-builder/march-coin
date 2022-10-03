@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
-namespace march_token.src
+namespace ecc.src
 {
     internal class Point
     {
@@ -105,10 +106,17 @@ namespace march_token.src
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            Point point = (Point)obj;
+            if (this.x is null && this.y is null && point.x is null && point.y is null) return true;
+            return point.x == this.x && point.y == this.y && point.a == this.a && point.b == this.b;
         }
 
-        public static Point operator *(Point current, int coefficient)       // binary algorithm to __rmul__
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static Point operator *(Point current, BigInteger coefficient)       // binary algorithm to __rmul__
         {
             Point result = current;
 
