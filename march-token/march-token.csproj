@@ -40,6 +40,8 @@
     <Compile Include="src\main.cs" />
     <Compile Include="src\mathBase.cs" />
     <Compile Include="src\Point.cs" />
+    <Compile Include="src\S256Field.cs" />
+    <Compile Include="src\S256Point.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Numerics" />
